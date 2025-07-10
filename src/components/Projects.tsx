@@ -4,6 +4,7 @@ import { ExternalLink, Github, Brain, Phone, Shield, Bot } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Link } from 'react-router-dom';
 
 const Projects = () => {
   const projects = [
@@ -125,10 +126,12 @@ const Projects = () => {
 
         {/* View More Button */}
         <div className="text-center mt-12 animate-fade-in-up" style={{animationDelay: '0.8s'}}>
-          <Button variant="outline" size="lg" className="border-primary/50 hover:bg-primary/10">
-            View All Projects
-            <ExternalLink className="ml-2 h-4 w-4" />
-          </Button>
+          <Link to="/projects">
+            <Button variant="outline" size="lg" className="border-primary/50 hover:bg-primary/10">
+              View All Projects
+              <ExternalLink className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

@@ -4,6 +4,13 @@ import { ArrowRight, Code, Cpu, Rocket } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Hero = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
       {/* Background gradient */}
@@ -44,11 +51,20 @@ const Hero = () => {
 
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center animate-fade-in-up px-4" style={{animationDelay: '0.6s'}}>
-            <Button size="lg" className="gradient-bg hover:opacity-90 transition-opacity group w-full sm:w-auto">
+            <Button 
+              size="lg" 
+              className="gradient-bg hover:opacity-90 transition-opacity group w-full sm:w-auto"
+              onClick={() => scrollToSection('projects')}
+            >
               See My Work
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button variant="outline" size="lg" className="border-primary/50 hover:bg-primary/10 w-full sm:w-auto">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border-primary/50 hover:bg-primary/10 w-full sm:w-auto"
+              onClick={() => scrollToSection('contact')}
+            >
               Let's Build Together
             </Button>
           </div>

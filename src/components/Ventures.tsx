@@ -28,6 +28,11 @@ const Ventures = () => {
     }
   ];
 
+  const handleCompanyLink = () => {
+    // Replace with your actual company website
+    window.open('https://your-company-website.com', '_blank');
+  };
+
   return (
     <section id="ventures" className="py-20 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -87,7 +92,10 @@ const Ventures = () => {
             </div>
 
             <div className="mt-8">
-              <Button className="gradient-bg hover:opacity-90 transition-opacity">
+              <Button 
+                className="gradient-bg hover:opacity-90 transition-opacity"
+                onClick={handleCompanyLink}
+              >
                 Learn More About Our Company
               </Button>
             </div>

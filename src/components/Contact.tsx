@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/hooks/use-toast';
+import BookCallForm from './BookCallForm';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,8 @@ const Contact = () => {
     company: '',
     message: ''
   });
+  
+  const [isBookCallOpen, setIsBookCallOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -185,7 +188,11 @@ const Contact = () => {
                     Prefer a direct conversation? Book a 30-minute call to discuss your project 
                     requirements and explore how we can work together.
                   </p>
-                  <Button variant="outline" className="border-primary/50 hover:bg-primary/10">
+                  <Button 
+                    variant="outline" 
+                    className="border-primary/50 hover:bg-primary/10"
+                    onClick={() => setIsBookCallOpen(true)}
+                  >
                     Book a Call
                   </Button>
                 </CardContent>
@@ -203,6 +210,11 @@ const Contact = () => {
           </div>
         </div>
       </div>
+
+      <BookCallForm 
+        isOpen={isBookCallOpen} 
+        onClose={() => setIsBookCallOpen(false)} 
+      />
     </section>
   );
 };
