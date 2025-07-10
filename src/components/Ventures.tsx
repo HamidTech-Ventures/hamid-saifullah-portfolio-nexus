@@ -8,13 +8,13 @@ const Ventures = () => {
   const achievements = [
     {
       icon: Users,
-      number: "50+",
+      number: "5+",
       label: "Enterprise Clients"
     },
     {
       icon: Globe,
-      number: "15+",
-      label: "Countries Served"
+      number: "5",
+      label: "Personal Products"
     },
     {
       icon: TrendingUp,

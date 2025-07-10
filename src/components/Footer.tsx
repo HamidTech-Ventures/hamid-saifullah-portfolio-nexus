@@ -31,7 +31,7 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Technologies</h4>
             <div className="flex flex-wrap gap-2">
-              {['React', 'Node.js', 'AI/ML', 'Blockchain', 'AWS', 'Python'].map((tech) => (
+              {['React', 'Node.js', 'AI/ML', 'AWS', 'Python', 'FastAPI', 'Machin Learning', 'Prompt Engineering', 'LLMs', 'RAG Systems', 'AI Agents'].map((tech) => (
                 <span key={tech} className="px-2 py-1 bg-secondary rounded text-xs">
                   {tech}
                 </span>

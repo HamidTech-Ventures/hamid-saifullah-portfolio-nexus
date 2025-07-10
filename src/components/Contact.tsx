@@ -31,20 +31,20 @@ const Contact = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "hamid@example.com",
-      href: "mailto:hamid@example.com"
+      value: "hamidtechventures@gmail.com",
+      href: "mailto:hamidtechventures@gmail.com"
     },
     {
       icon: Linkedin,
       label: "LinkedIn",
-      value: "linkedin.com/in/hamidsaifullah",
-      href: "https://linkedin.com/in/hamidsaifullah"
+      value: "linkedin.com/in/hamid-saifullah",
+      href: "https://www.linkedin.com/in/hamid-saifullah-baa10b292/"
     },
     {
       icon: Github,
       label: "GitHub",
       value: "github.com/hamidsaifullah",
-      href: "https://github.com/hamidsaifullah"
+      href: "https://github.com/HamidTech-Ventures"
     },
     {
       icon: MapPin,

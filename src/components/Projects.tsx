@@ -10,43 +10,43 @@ const Projects = () => {
   const projects = [
     {
       title: "Wukala-GPT",
-      description: "Revolutionary AI-powered legal assistant that provides instant legal consultations, document analysis, and case research capabilities for law firms and individuals.",
+      description: "Wukala-GPT is a powerful SaaS legal platform that offers an AI law chatbot answering Pakistan law queries in Urdu and English (text and voice), secures legal documents on blockchain, helps users find and hire lawyers with filters, provides verified national/international legal news, and offers free access to Pakistan law books.",
       icon: Brain,
-      techStack: ["Next.js", "OpenAI GPT-4", "Vector DB", "Tailwind CSS"],
+      techStack: ["React.js", "Langchain", 'Groq Llama', "Vector DB", "Tailwind CSS", 'FastAPI', 'ASP.NET Web Api', 'PostgreSql'],
       impact: "Reduced legal research time by 80%",
       featured: true,
-      link: "#",
-      github: "#"
+      link: "https://elevate-digital-presence.vercel.app/",
+      github: "https://github.com/HamidTech-Ventures"
     },
     {
       title: "Healthcare AI System",
-      description: "Comprehensive AI-driven healthcare platform featuring symptom analysis, appointment scheduling, and patient management with HIPAA compliance.",
+      description: "MediTech AI is a smart healthcare platform offering telemedicine, AI chatbots for doctors and patients, secure medical record storage, appointment booking, and free medicine delivery—streamlining care for doctors, patients, students, and pharmacies. It bridges modern technology with healthcare to improve access, efficiency, and patient outcome",
       icon: Shield,
-      techStack: ["React", "Node.js", "TensorFlow", "MongoDB"],
+      techStack: ["React", "Node.js", "TensorFlow", "MongoDB", 'AWS', 'CI/CD'],
       impact: "Serving 1000+ patients daily",
       featured: true,
-      link: "#",
-      github: "#"
+      link: "https://elevate-digital-presence.vercel.app/",
+      github: "https://github.com/HamidTech-Ventures"
     },
     {
-      title: "Voice Call Agent",
-      description: "Intelligent voice AI agent capable of handling customer service calls, sales inquiries, and appointment bookings with natural conversation flow.",
-      icon: Phone,
-      techStack: ["Python", "Speech-to-Text", "LLMs", "WebRTC"],
+      title: "Sehat-e-Nabvi Hub",
+      description: "Prophetic Tib: Medicine & Healthcare is a unique digital platform dedicated to traditional and prophetic healing methods practiced across India, Pakistan, and Afghanistan. Rooted in centuries-old wisdom, it offers guidance, remedies, and educational content based on Desi and prophetic medicine, promoting natural wellness through trusted cultural practices and Sunnah-based healing traditions.",
+      icon: Shield,
+      techStack: ["FastAPI", "TTS & STT Models", "Llama", "Pinecone", "React", "ASP.NET Web Api"],
       impact: "95% customer satisfaction rate",
       featured: false,
-      link: "#",
-      github: "#"
+      link: "https://elevate-digital-presence.vercel.app/",
+      github: "https://github.com/HamidTech-Ventures"
     },
     {
       title: "Enterprise Chatbot Platform",
-      description: "White-label chatbot solution for enterprises with advanced NLP, multi-language support, and seamless integration capabilities.",
+      description: "SupportAI is an advanced AI-powered customer support chatbot that provides instant, multilingual assistance, handles FAQs, and automates query resolution for businesses—enhancing customer experience and reducing response time across platforms. White-label chatbot solution for enterprises with advanced NLP, multi-language support, and seamless integration capabilities.",
       icon: Bot,
-      techStack: ["MERN Stack", "NLP", "Socket.io", "AWS"],
-      impact: "Deployed across 50+ companies",
+      techStack: ["FastAPI", "Langchain", "Prompt Engineering", "AWS"],
+      impact: "Deployed across 2+ Products",
       featured: false,
-      link: "#",
-      github: "#"
+      link: "https://elevate-digital-presence.vercel.app/",
+      github: "https://github.com/HamidTech-Ventures"
     }
   ];
 

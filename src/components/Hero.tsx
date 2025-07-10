@@ -42,7 +42,7 @@ const Hero = () => {
 
           {/* Tech badges */}
           <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 animate-fade-in-up px-4" style={{animationDelay: '0.4s'}}>
-            {['AI & LLMs', 'MERN Stack', 'Blockchain', 'SaaS', '.NET'].map((tech) => (
+            {['AI & LLMs', 'RAG Systems', 'MERN Stack', 'Python', 'FastAPI', 'SaaS', '.NET'].map((tech) => (
               <span key={tech} className="px-2 py-1 sm:px-3 sm:py-1 bg-secondary rounded-full text-xs sm:text-sm font-medium border border-border">
                 {tech}
               </span>
