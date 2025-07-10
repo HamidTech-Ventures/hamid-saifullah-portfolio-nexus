@@ -93,11 +93,21 @@ const Chatbot = () => {
     }
   };
 
+  const toggleChatbot = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeChatbot = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsOpen(false);
+  };
+
   return (
     <>
       {/* Chatbot Toggle Button */}
       <Button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={toggleChatbot}
         className="fixed bottom-6 right-6 z-50 rounded-full w-12 h-12 p-0 gradient-bg hover:opacity-90 transition-opacity shadow-lg"
       >
         {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
@@ -107,10 +117,20 @@ const Chatbot = () => {
       {isOpen && (
         <Card className="fixed bottom-20 right-6 z-50 w-80 h-96 shadow-xl border-primary/20">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg flex items-center">
-              <Bot className="h-5 w-5 mr-2 text-primary" />
-              Ask about Hamid
-            </CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-lg flex items-center">
+                <Bot className="h-5 w-5 mr-2 text-primary" />
+                Ask about Hamid
+              </CardTitle>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={closeChatbot}
+                className="h-6 w-6 p-0 hover:bg-muted"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
           </CardHeader>
           <CardContent className="p-0 flex flex-col h-full">
             {/* Messages */}

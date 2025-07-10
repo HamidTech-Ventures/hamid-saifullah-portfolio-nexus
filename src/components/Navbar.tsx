@@ -3,11 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/components/ThemeProvider';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,13 +19,27 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const isHomePage = location.pathname === '/';
+
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Ventures', href: '#ventures' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Home', href: isHomePage ? '#home' : '/', isRoute: !isHomePage },
+    { name: 'About', href: isHomePage ? '#about' : '/#about', isRoute: !isHomePage },
+    { name: 'Projects', href: isHomePage ? '#projects' : '/#projects', isRoute: !isHomePage },
+    { name: 'Ventures', href: isHomePage ? '#ventures' : '/#ventures', isRoute: !isHomePage },
+    { name: 'Contact', href: isHomePage ? '#contact' : '/#contact', isRoute: !isHomePage }
   ];
+
+  const handleNavClick = (href: string, isRoute: boolean) => {
+    setIsOpen(false);
+    
+    if (!isRoute && isHomePage) {
+      // Smooth scroll to section on home page
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -33,20 +49,34 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <span className="text-2xl font-bold gradient-text">Hamid Saifullah</span>
+            <Link to="/" className="text-2xl font-bold gradient-text">
+              Hamid Saifullah
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-8">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
-                >
-                  {link.name}
-                </a>
+                link.isRoute ? (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
+                    onClick={() => handleNavClick(link.href, link.isRoute)}
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
+                    onClick={() => handleNavClick(link.href, link.isRoute)}
+                  >
+                    {link.name}
+                  </a>
+                )
               ))}
               <Button
                 variant="ghost"
@@ -83,14 +113,25 @@ const Navbar = () => {
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 bg-background/95 backdrop-blur-md border-b border-border">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:text-primary transition-colors duration-200"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.name}
-              </a>
+              link.isRoute ? (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:text-primary transition-colors duration-200"
+                  onClick={() => handleNavClick(link.href, link.isRoute)}
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:text-primary transition-colors duration-200"
+                  onClick={() => handleNavClick(link.href, link.isRoute)}
+                >
+                  {link.name}
+                </a>
+              )
             ))}
           </div>
         </div>
