@@ -1,9 +1,11 @@
 
 import React, { useState } from 'react';
-import { MessageCircle, Send, X, Bot, User } from 'lucide-react';
+import { MessageCircle, Send, X, Bot, User, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 interface Message {
   id: string;
@@ -13,6 +15,7 @@ interface Message {
 }
 
 const Chatbot = () => {
+  const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -23,47 +26,10 @@ const Chatbot = () => {
     }
   ]);
   const [inputText, setInputText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const knowledgeBase = {
-    skills: "Hamid specializes in AI & Generative AI (Agents, RAG, STT/TTS, LLMs), MERN Stack, .NET development, Blockchain & Smart Contracts, SaaS Platforms, and Scalable Web Systems.",
-    experience: "Hamid is a 21-year-old Software Engineer from Pakistan with 2+ years of experience. He's a tech entrepreneur and AI innovator who builds real-world AI solutions.",
-    projects: "Hamid has worked on 10+ projects including Wukala-GPT, Healthcare AI System, Voice Call Agent, and various SaaS platforms that transform industries.",
-    company: "Hamid is the founder of a company that builds real-world AI solutions for businesses globally.",
-    contact: "You can reach Hamid through the contact form on this website, LinkedIn, or email for business opportunities, partnerships, or project collaborations.",
-    services: "Hamid offers AI solution development, web application development, blockchain development, SaaS platform creation, and technical consulting services.",
-    location: "Hamid is based in Pakistan but works with clients globally.",
-    age: "Hamid is 21 years old.",
-    background: "Hamid started his journey as a software engineer and evolved into a tech entrepreneur, focusing on AI innovation and building solutions that have real-world impact."
-  };
-
-  const generateResponse = (question: string): string => {
-    const lowerQuestion = question.toLowerCase();
-    
-    if (lowerQuestion.includes('skill') || lowerQuestion.includes('technology') || lowerQuestion.includes('stack')) {
-      return knowledgeBase.skills;
-    } else if (lowerQuestion.includes('experience') || lowerQuestion.includes('work') || lowerQuestion.includes('career')) {
-      return knowledgeBase.experience;
-    } else if (lowerQuestion.includes('project') || lowerQuestion.includes('portfolio') || lowerQuestion.includes('build')) {
-      return knowledgeBase.projects;
-    } else if (lowerQuestion.includes('company') || lowerQuestion.includes('startup') || lowerQuestion.includes('business')) {
-      return knowledgeBase.company;
-    } else if (lowerQuestion.includes('contact') || lowerQuestion.includes('reach') || lowerQuestion.includes('hire')) {
-      return knowledgeBase.contact;
-    } else if (lowerQuestion.includes('service') || lowerQuestion.includes('offer') || lowerQuestion.includes('help')) {
-      return knowledgeBase.services;
-    } else if (lowerQuestion.includes('location') || lowerQuestion.includes('where') || lowerQuestion.includes('based')) {
-      return knowledgeBase.location;
-    } else if (lowerQuestion.includes('age') || lowerQuestion.includes('old')) {
-      return knowledgeBase.age;
-    } else if (lowerQuestion.includes('background') || lowerQuestion.includes('story') || lowerQuestion.includes('about')) {
-      return knowledgeBase.background;
-    } else {
-      return "I can help you learn about Hamid's skills, experience, projects, company, or how to contact him. What would you like to know specifically?";
-    }
-  };
-
-  const handleSendMessage = () => {
-    if (!inputText.trim()) return;
+  const handleSendMessage = async () => {
+    if (!inputText.trim() || isLoading) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -73,18 +39,39 @@ const Chatbot = () => {
     };
 
     setMessages(prev => [...prev, userMessage]);
+    setInputText('');
+    setIsLoading(true);
 
-    setTimeout(() => {
+    try {
+      const conversationMessages = [...messages, userMessage].map(msg => ({
+        role: msg.sender === 'user' ? 'user' : 'assistant',
+        content: msg.text
+      }));
+
+      const { data, error } = await supabase.functions.invoke('chat', {
+        body: { messages: conversationMessages }
+      });
+
+      if (error) throw error;
+
       const botResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: generateResponse(inputText),
+        text: data.message || "I'm sorry, I couldn't generate a response. Please try again.",
         sender: 'bot',
         timestamp: new Date()
       };
-      setMessages(prev => [...prev, botResponse]);
-    }, 1000);
 
-    setInputText('');
+      setMessages(prev => [...prev, botResponse]);
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to get a response. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -166,9 +153,10 @@ const Chatbot = () => {
                   onKeyPress={handleKeyPress}
                   placeholder="Ask me anything about Hamid..."
                   className="flex-1"
+                  disabled={isLoading}
                 />
-                <Button onClick={handleSendMessage} size="sm" className="px-3">
-                  <Send className="h-4 w-4" />
+                <Button onClick={handleSendMessage} size="sm" className="px-3" disabled={isLoading}>
+                  {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
                 </Button>
               </div>
             </div>
