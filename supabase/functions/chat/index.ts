@@ -134,7 +134,7 @@ End of System Prompt.
           }
         ],
         tool_choice: "auto",
-        stream: false,
+        stream: true,
       }),
     });
 
