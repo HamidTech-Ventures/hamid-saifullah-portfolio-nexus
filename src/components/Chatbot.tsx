@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react';
-import { MessageCircle, Send, X, Bot, User, Loader2 } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { MessageCircle, Send, X, Bot, User, Loader2, Mic, MicOff, Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,13 +20,100 @@ const Chatbot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "Hi! I'm Hamid's AI assistant. Ask me anything about his background, skills, projects, or how you can work together!",
+      text: "Hi! I'm Hamid's AI assistant. Ask me anything about his background, skills, projects, or if you'd like to schedule a meeting with him!",
       sender: 'bot',
       timestamp: new Date()
     }
   ]);
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const recognitionRef = useRef<any>(null);
+  const synthesisRef = useRef<SpeechSynthesisUtterance | null>(null);
+
+  // Auto-scroll to bottom
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  // Initialize speech recognition
+  useEffect(() => {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = false;
+      recognitionRef.current.lang = 'en-US';
+
+      recognitionRef.current.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setInputText(transcript);
+        setIsListening(false);
+      };
+
+      recognitionRef.current.onerror = () => {
+        setIsListening(false);
+        toast({
+          title: "Voice Error",
+          description: "Couldn't capture voice. Please try again.",
+          variant: "destructive",
+        });
+      };
+
+      recognitionRef.current.onend = () => {
+        setIsListening(false);
+      };
+    }
+  }, []);
+
+  const toggleVoiceInput = () => {
+    if (!recognitionRef.current) {
+      toast({
+        title: "Not Supported",
+        description: "Voice input is not supported in your browser.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    } else {
+      recognitionRef.current.start();
+      setIsListening(true);
+    }
+  };
+
+  const speakText = (text: string) => {
+    if (!voiceEnabled) return;
+    
+    // Stop any ongoing speech
+    window.speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    utterance.volume = 1.0;
+    
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+    
+    synthesisRef.current = utterance;
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const toggleVoiceOutput = () => {
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    }
+    setVoiceEnabled(!voiceEnabled);
+  };
 
   const handleSendMessage = async () => {
     if (!inputText.trim() || isLoading) return;
@@ -62,6 +149,19 @@ const Chatbot = () => {
       };
 
       setMessages(prev => [...prev, botResponse]);
+      
+      // Speak the response if voice is enabled
+      if (voiceEnabled && data.message) {
+        speakText(data.message);
+      }
+
+      // Show toast if meeting was scheduled
+      if (data.meetingScheduled) {
+        toast({
+          title: "Meeting Scheduled!",
+          description: "Hamid will reach out to you within 24 hours to confirm the meeting details.",
+        });
+      }
     } catch (error) {
       console.error('Error:', error);
       toast({
@@ -107,16 +207,27 @@ const Chatbot = () => {
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg flex items-center">
                 <Bot className="h-5 w-5 mr-2 text-primary" />
-                Ask about Hamid
+                Chat with Hamid's AI
               </CardTitle>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={closeChatbot}
-                className="h-6 w-6 p-0 hover:bg-muted"
-              >
-                <X className="h-4 w-4" />
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={toggleVoiceOutput}
+                  className="h-6 w-6 p-0 hover:bg-muted"
+                  title={voiceEnabled ? "Disable voice" : "Enable voice"}
+                >
+                  {voiceEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={closeChatbot}
+                  className="h-6 w-6 p-0 hover:bg-muted"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </CardHeader>
           <CardContent className="p-0 flex flex-col h-full">
@@ -142,6 +253,7 @@ const Chatbot = () => {
                   </div>
                 </div>
               ))}
+              <div ref={messagesEndRef} />
             </div>
 
             {/* Input */}
@@ -151,11 +263,20 @@ const Chatbot = () => {
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Ask me anything about Hamid..."
+                  placeholder="Type or speak your question..."
                   className="flex-1"
-                  disabled={isLoading}
+                  disabled={isLoading || isListening}
                 />
-                <Button onClick={handleSendMessage} size="sm" className="px-3" disabled={isLoading}>
+                <Button 
+                  onClick={toggleVoiceInput} 
+                  size="sm" 
+                  className="px-3"
+                  variant={isListening ? "default" : "outline"}
+                  disabled={isLoading}
+                >
+                  {isListening ? <Mic className="h-4 w-4 animate-pulse" /> : <MicOff className="h-4 w-4" />}
+                </Button>
+                <Button onClick={handleSendMessage} size="sm" className="px-3" disabled={isLoading || isListening}>
                   {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
                 </Button>
               </div>
