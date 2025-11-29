@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface Message {
   id: string;
@@ -246,9 +248,13 @@ const Chatbot = () => {
                     }`}
                   >
                     <div className="flex items-start space-x-2">
-                      {message.sender === 'bot' && <Bot className="h-4 w-4 mt-0.5 text-primary" />}
-                      {message.sender === 'user' && <User className="h-4 w-4 mt-0.5" />}
-                      <p className="text-sm">{message.text}</p>
+                      {message.sender === 'bot' && <Bot className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />}
+                      {message.sender === 'user' && <User className="h-4 w-4 mt-0.5 flex-shrink-0" />}
+                      <div className="text-sm prose prose-sm dark:prose-invert max-w-none prose-p:my-2 prose-headings:mb-2 prose-headings:mt-3 prose-ul:my-2 prose-ol:my-2 prose-li:my-1 prose-pre:my-2 prose-table:my-2">
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                          {message.text}
+                        </ReactMarkdown>
+                      </div>
                     </div>
                   </div>
                 </div>
