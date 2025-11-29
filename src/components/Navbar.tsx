@@ -49,8 +49,8 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="/" className="text-2xl font-bold gradient-text">
-              Hamid Saifullah
+            <Link to="/" className="flex items-center space-x-2">
+              <img src="/logo.jpeg" alt="Hamid Saifullah Logo" className="h-10 w-auto" />
             </Link>
           </div>
 
