@@ -18,33 +18,63 @@ const Contact = () => {
   
   const [isBookCallOpen, setIsBookCallOpen] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. I'll get back to you within 24 hours.",
-    });
-    setFormData({ name: '', email: '', company: '', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/hamidsaif214@gmail.com", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: "New Contact Message from Portfolio",
+          ...formData
+        })
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Message Sent!",
+          description: "Thank you for reaching out. I'll get back to you within 24 hours.",
+        });
+        setFormData({ name: '', email: '', company: '', message: '' });
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again or email directly.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
     {
       icon: Mail,
       label: "Email",
-      value: "hamidtechventures@gmail.com",
-      href: "mailto:hamidtechventures@gmail.com"
+      value: "hamidsaif214@gmail.com",
+      href: "mailto:hamidsaif214@gmail.com"
     },
     {
       icon: Linkedin,
       label: "LinkedIn",
-      value: "linkedin.com/in/hamid-saifullah",
+      value: "linkedin.com/in/hamid-saifullah-baa10b292",
       href: "https://www.linkedin.com/in/hamid-saifullah-baa10b292/"
     },
     {
       icon: Github,
       label: "GitHub",
-      value: "github.com/hamidsaifullah",
-      href: "https://github.com/HamidTech-Ventures"
+      value: "github.com/Hamid-GenAI-Eng",
+      href: "https://github.com/Hamid-GenAI-Eng"
     },
     {
       icon: MapPin,
@@ -55,7 +85,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className="py-12 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-fade-in-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -67,7 +97,7 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
           {/* Left side - Contact form */}
           <div className="animate-fade-in-up">
             <Card className="shadow-lg">
@@ -131,12 +161,12 @@ const Contact = () => {
                       rows={6}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Tell me about your project, idea, or how we can work together..."
+                      placeholder="Tell me about your business challenges and how we can partner to solve them through technology."
                     />
                   </div>
 
-                  <Button type="submit" className="w-full gradient-bg hover:opacity-90 transition-opacity">
-                    Send Message
+                  <Button type="submit" disabled={isSubmitting} className="w-full gradient-bg hover:opacity-90 transition-opacity">
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </Button>
                 </form>
               </CardContent>

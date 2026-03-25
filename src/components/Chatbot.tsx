@@ -1,6 +1,6 @@
 
-import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, Send, X, Bot, User, Loader2, Mic, MicOff, Volume2, VolumeX } from 'lucide-react';
+import React, { useState } from 'react';
+import { MessageCircle, Send, X, Bot, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -28,97 +28,48 @@ const Chatbot = () => {
     }
   ]);
   const [inputText, setInputText] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isListening, setIsListening] = useState(false);
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const [voiceEnabled, setVoiceEnabled] = useState(true);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const recognitionRef = useRef<any>(null);
-  const synthesisRef = useRef<SpeechSynthesisUtterance | null>(null);
 
-  // Auto-scroll to bottom
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  const knowledgeBase = {
+    skills: "Hamid specializes in AI & Generative AI (Agents, RAG, STT/TTS, LLMs), MERN Stack, .NET development, Blockchain & Smart Contracts, SaaS Platforms, and Scalable Web Systems.",
+    experience: "Hamid is a 21-year-old Software Engineer from Pakistan with 2+ years of experience. He's a tech entrepreneur and AI innovator who builds real-world AI solutions.",
+    projects: "Hamid has worked on 10+ projects including Wukala-GPT, Healthcare AI System, Voice Call Agent, and various SaaS platforms that transform industries.",
+    company: "Hamid is the founder of a company that builds real-world AI solutions for businesses globally.",
+    contact: "You can reach Hamid through the contact form on this website, LinkedIn, or email for business opportunities, partnerships, or project collaborations.",
+    services: "Hamid offers AI solution development, web application development, blockchain development, SaaS platform creation, and technical consulting services.",
+    location: "Hamid is based in Pakistan but works with clients globally.",
+    age: "Hamid is 21 years old.",
+    background: "Hamid started his journey as a software engineer and evolved into a tech entrepreneur, focusing on AI innovation and building solutions that have real-world impact."
+  };
 
-  // Initialize speech recognition
-  useEffect(() => {
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
-      recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = false;
-      recognitionRef.current.interimResults = false;
-      recognitionRef.current.lang = 'en-US';
-
-      recognitionRef.current.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript;
-        setInputText(transcript);
-        setIsListening(false);
-      };
-
-      recognitionRef.current.onerror = () => {
-        setIsListening(false);
-        toast({
-          title: "Voice Error",
-          description: "Couldn't capture voice. Please try again.",
-          variant: "destructive",
-        });
-      };
-
-      recognitionRef.current.onend = () => {
-        setIsListening(false);
-      };
-    }
-  }, []);
-
-  const toggleVoiceInput = () => {
-    if (!recognitionRef.current) {
-      toast({
-        title: "Not Supported",
-        description: "Voice input is not supported in your browser.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (isListening) {
-      recognitionRef.current.stop();
-      setIsListening(false);
+  const generateResponse = (question: string): string => {
+    const lowerQuestion = question.toLowerCase();
+    
+    if (lowerQuestion.includes('skill') || lowerQuestion.includes('technology') || lowerQuestion.includes('stack')) {
+      return knowledgeBase.skills;
+    } else if (lowerQuestion.includes('experience') || lowerQuestion.includes('work') || lowerQuestion.includes('career')) {
+      return knowledgeBase.experience;
+    } else if (lowerQuestion.includes('project') || lowerQuestion.includes('portfolio') || lowerQuestion.includes('build')) {
+      return knowledgeBase.projects;
+    } else if (lowerQuestion.includes('company') || lowerQuestion.includes('startup') || lowerQuestion.includes('business')) {
+      return knowledgeBase.company;
+    } else if (lowerQuestion.includes('contact') || lowerQuestion.includes('reach') || lowerQuestion.includes('hire')) {
+      return knowledgeBase.contact;
+    } else if (lowerQuestion.includes('service') || lowerQuestion.includes('offer') || lowerQuestion.includes('help')) {
+      return knowledgeBase.services;
+    } else if (lowerQuestion.includes('location') || lowerQuestion.includes('where') || lowerQuestion.includes('based')) {
+      return knowledgeBase.location;
+    } else if (lowerQuestion.includes('age') || lowerQuestion.includes('old')) {
+      return knowledgeBase.age;
+    } else if (lowerQuestion.includes('background') || lowerQuestion.includes('story') || lowerQuestion.includes('about')) {
+      return knowledgeBase.background;
     } else {
-      recognitionRef.current.start();
-      setIsListening(true);
-    }
-  };
-
-  const speakText = (text: string) => {
-    if (!voiceEnabled) return;
-    
-    // Stop any ongoing speech
-    window.speechSynthesis.cancel();
-    
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 1.0;
-    utterance.pitch = 1.0;
-    utterance.volume = 1.0;
-    
-    utterance.onstart = () => setIsSpeaking(true);
-    utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = () => setIsSpeaking(false);
-    
-    synthesisRef.current = utterance;
-    window.speechSynthesis.speak(utterance);
-  };
-
-  const toggleVoiceOutput = () => {
-    if (isSpeaking) {
-      window.speechSynthesis.cancel();
-      setIsSpeaking(false);
+      return "I can help you learn about Hamid's skills, experience, projects, company, or how to contact him. What would you like to know specifically?";
     }
     setVoiceEnabled(!voiceEnabled);
   };
 
-  const handleSendMessage = async () => {
-    if (!inputText.trim() || isLoading) return;
+  const handleSendMessage = () => {
+    if (!inputText.trim()) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -128,56 +79,23 @@ const Chatbot = () => {
     };
 
     setMessages(prev => [...prev, userMessage]);
-    setInputText('');
-    setIsLoading(true);
 
-    try {
-      const conversationMessages = [...messages, userMessage].map(msg => ({
-        role: msg.sender === 'user' ? 'user' : 'assistant',
-        content: msg.text
-      }));
-
-      const { data, error } = await supabase.functions.invoke('chat', {
-        body: { messages: conversationMessages }
-      });
-
-      if (error) throw error;
-
+    setTimeout(() => {
       const botResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: data.message || "I'm sorry, I couldn't generate a response. Please try again.",
+        text: generateResponse(inputText),
         sender: 'bot',
         timestamp: new Date()
       };
-
       setMessages(prev => [...prev, botResponse]);
-      
-      // Speak the response if voice is enabled
-      if (voiceEnabled && data.message) {
-        speakText(data.message);
-      }
+    }, 1000);
 
-      // Show toast if meeting was scheduled
-      if (data.meetingScheduled) {
-        toast({
-          title: "Meeting Scheduled!",
-          description: "Hamid will reach out to you within 24 hours to confirm the meeting details.",
-        });
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      toast({
-        title: "Error",
-        description: "Failed to get a response. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    setInputText('');
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
+      e.preventDefault();
       handleSendMessage();
     }
   };
@@ -204,7 +122,7 @@ const Chatbot = () => {
 
       {/* Chatbot Window */}
       {isOpen && (
-        <Card className="fixed bottom-20 right-6 z-50 w-80 h-96 shadow-xl border-primary/20">
+        <Card className="fixed bottom-20 right-6 z-50 w-80 h-96 shadow-xl border-primary/20 flex flex-col">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg flex items-center">
@@ -259,7 +177,6 @@ const Chatbot = () => {
                   </div>
                 </div>
               ))}
-              <div ref={messagesEndRef} />
             </div>
 
             {/* Input */}
@@ -269,7 +186,7 @@ const Chatbot = () => {
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Type or speak your question..."
+                  placeholder="Ask me anything about Hamid..."
                   className="flex-1"
                   disabled={isLoading || isListening}
                 />

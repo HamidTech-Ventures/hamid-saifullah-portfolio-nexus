@@ -24,7 +24,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', href: isHomePage ? '#home' : '/', isRoute: !isHomePage },
     { name: 'About', href: isHomePage ? '#about' : '/#about', isRoute: !isHomePage },
-    { name: 'Projects', href: isHomePage ? '#projects' : '/#projects', isRoute: !isHomePage },
+    { name: 'Solutions', href: isHomePage ? '#projects' : '/#projects', isRoute: !isHomePage },
     { name: 'Ventures', href: isHomePage ? '#ventures' : '/#ventures', isRoute: !isHomePage },
     { name: 'Contact', href: isHomePage ? '#contact' : '/#contact', isRoute: !isHomePage }
   ];

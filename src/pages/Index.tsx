@@ -5,10 +5,9 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
 import Projects from '@/components/Projects';
-import Ventures from '@/components/Ventures';
+import TechnicalArsenal from '@/components/TechnicalArsenal';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
-import Chatbot from '@/components/Chatbot';
 
 const Index = () => {
   return (
@@ -18,10 +17,9 @@ const Index = () => {
         <Hero />
         <About />
         <Projects />
-        <Ventures />
+        <TechnicalArsenal />
         <Contact />
         <Footer />
-        <Chatbot />
       </div>
     </ThemeProvider>
   );

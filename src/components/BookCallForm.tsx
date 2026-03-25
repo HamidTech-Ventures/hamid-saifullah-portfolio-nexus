@@ -30,30 +30,39 @@ const BookCallForm: React.FC<BookCallFormProps> = ({ isOpen, onClose }) => {
     setIsSubmitting(true);
 
     try {
-      // Here you would normally send the data to your email service
-      // For now, we'll simulate the email sending
-      console.log('Form Data to be sent to email:', formData);
-      
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      toast({
-        title: "Meeting Request Sent!",
-        description: "Thank you for your interest. I'll get back to you within 24 hours to schedule our call.",
+      const response = await fetch("https://formsubmit.co/ajax/hamidsaif214@gmail.com", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `New Strategy Call Request from ${formData.name}`,
+          ...formData
+        })
       });
-      
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        projectType: '',
-        budget: '',
-        timeline: '',
-        message: ''
-      });
-      
-      onClose();
+
+      if (response.ok) {
+        toast({
+          title: "Meeting Request Sent!",
+          description: "Thank you for your interest. I'll get back to you within 24 hours to schedule our call.",
+        });
+        
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          projectType: '',
+          budget: '',
+          timeline: '',
+          message: ''
+        });
+        
+        onClose();
+      } else {
+        throw new Error("Failed to send request");
+      }
     } catch (error) {
       toast({
         title: "Error",
@@ -216,7 +225,7 @@ const BookCallForm: React.FC<BookCallFormProps> = ({ isOpen, onClose }) => {
               rows={4}
               value={formData.message}
               onChange={handleChange}
-              placeholder="Please describe your project, goals, and any specific requirements. The more details you provide, the better I can prepare for our call."
+              placeholder="Please describe your business challenges, goals, and any specific requirements. The more details you provide, the better I can prepare for our strategic call."
             />
           </div>
 
