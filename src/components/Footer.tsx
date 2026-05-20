@@ -11,7 +11,7 @@ const Footer = () => {
           <div>
             <h3 className="text-2xl font-bold gradient-text mb-4">Hamid Saifullah</h3>
             <p className="text-muted-foreground">
-              Tech Entrepreneur & AI Innovator building the future, one solution at a time.
+              Agentic AI, ML & modern web. I turn business problems into working systems.
             </p>
           </div>
 
@@ -21,8 +21,8 @@ const Footer = () => {
             <ul className="space-y-2 text-muted-foreground">
               <li><a href="#home" className="hover:text-primary transition-colors">Home</a></li>
               <li><a href="#about" className="hover:text-primary transition-colors">About</a></li>
-              <li><a href="#projects" className="hover:text-primary transition-colors">Projects</a></li>
-              <li><a href="#ventures" className="hover:text-primary transition-colors">Ventures</a></li>
+              <li><a href="#projects" className="hover:text-primary transition-colors">Work</a></li>
+              <li><a href="#ventures" className="hover:text-primary transition-colors">Services</a></li>
               <li><a href="#contact" className="hover:text-primary transition-colors">Contact</a></li>
             </ul>
           </div>
@@ -31,7 +31,7 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Technologies</h4>
             <div className="flex flex-wrap gap-2">
-              {['React', 'Node.js', 'AI/ML', 'AWS', 'Python', 'FastAPI', 'Machin Learning', 'Prompt Engineering', 'LLMs', 'RAG Systems', 'AI Agents'].map((tech) => (
+              {['Agentic AI', 'LangGraph', 'RAG', 'LLMs', 'Machine Learning', 'FastAPI', 'Node.js', '.NET', 'React', 'AWS', 'Python'].map((tech) => (
                 <span key={tech} className="px-2 py-1 bg-secondary rounded text-xs">
                   {tech}
                 </span>
@@ -52,7 +52,7 @@ const Footer = () => {
           </div>
           
           <div className="text-muted-foreground text-sm">
-            © 2024 Hamid Saifullah. All rights reserved.
+            © 2026 Hamid Saifullah. All rights reserved.
           </div>
         </div>
       </div>
