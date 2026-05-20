@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { MessageCircle, Send, X, Bot, User } from 'lucide-react';
+import { MessageCircle, Send, X, Bot, User, Mic, MicOff, Volume2, VolumeX, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -28,6 +28,12 @@ const Chatbot = () => {
     }
   ]);
   const [inputText, setInputText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(false);
+
+  const toggleVoiceInput = () => setIsListening((v) => !v);
+  const toggleVoiceOutput = () => setVoiceEnabled((v) => !v);
 
   const knowledgeBase = {
     skills: "Hamid specializes in AI & Generative AI (Agents, RAG, STT/TTS, LLMs), MERN Stack, .NET development, Blockchain & Smart Contracts, SaaS Platforms, and Scalable Web Systems.",
@@ -65,7 +71,6 @@ const Chatbot = () => {
     } else {
       return "I can help you learn about Hamid's skills, experience, projects, company, or how to contact him. What would you like to know specifically?";
     }
-    setVoiceEnabled(!voiceEnabled);
   };
 
   const handleSendMessage = () => {
