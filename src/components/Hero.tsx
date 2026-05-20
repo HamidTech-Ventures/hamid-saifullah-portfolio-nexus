@@ -28,23 +28,23 @@ const Hero = () => {
             {/* Badge */}
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6 lg:mb-8 animate-fade-in">
               <Rocket className="w-4 h-4 mr-2 text-primary" />
-              <span className="text-sm font-medium text-primary">Technical Founder & AI Strategist</span>
+              <span className="text-sm font-medium text-primary">Agentic AI • ML • Modern Web</span>
             </div>
 
             {/* Main heading */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 animate-fade-in-up text-shadow leading-tight">
-              Building the Future with
-              <span className="block gradient-text">AI, Code & Purpose</span>
+              I turn business problems into
+              <span className="block gradient-text">working AI systems</span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              AI Solutions Architect from Pakistan, building scalable platforms that drive operational efficiency and transform businesses globally.
+              I help founders and teams ship custom Agentic AI, ML automations, RAG chatbots, and SaaS platforms that move the needle — usually in weeks, not quarters.
             </p>
 
             {/* Tech badges */}
             <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-10 animate-fade-in-up max-w-xl mx-auto lg:mx-0" style={{ animationDelay: '0.4s' }}>
-              {['Enterprise AI', 'Applied LLMs', 'Workflow Automation', 'SaaS Platforms', 'AI Chatbots', 'Digital Transformation', 'Smart Contracts'].map((tech) => (
+              {['Agentic AI', 'LangGraph', 'RAG Chatbots', 'ML Automation', 'FastAPI', 'React / Next', 'SaaS MVPs'].map((tech) => (
                 <span key={tech} className="px-3 py-1.5 bg-secondary/80 hover:bg-secondary transition-colors rounded-full text-xs sm:text-sm font-medium border border-border/50">
                   {tech}
                 </span>
@@ -56,18 +56,18 @@ const Hero = () => {
               <Button
                 size="lg"
                 className="gradient-bg hover:opacity-90 transition-opacity group w-full sm:w-auto h-12 px-8"
-                onClick={() => scrollToSection('projects')}
+                onClick={() => scrollToSection('contact')}
               >
-                Explore Solutions
+                Book a Free Strategy Call
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button
                 variant="outline"
                 size="lg"
                 className="border-primary/50 hover:bg-primary/10 w-full sm:w-auto h-12 px-8"
-                onClick={() => scrollToSection('contact')}
+                onClick={() => scrollToSection('projects')}
               >
-                Let's Build Together
+                See Recent Work
               </Button>
             </div>
 
@@ -75,15 +75,15 @@ const Hero = () => {
             <div className="grid grid-cols-3 gap-4 lg:gap-8 max-w-md mx-auto lg:mx-0 mt-16 animate-fade-in border-t border-border/50 pt-8" style={{ animationDelay: '0.8s' }}>
               <div className="text-center lg:text-left">
                 <div className="text-2xl md:text-3xl font-bold text-foreground">10+</div>
-                <div className="text-sm font-medium text-muted-foreground mt-1">Solutions</div>
+                <div className="text-sm font-medium text-muted-foreground mt-1">Systems Shipped</div>
               </div>
               <div className="text-center lg:text-left">
-                <div className="text-2xl md:text-3xl font-bold text-foreground">2+</div>
-                <div className="text-sm font-medium text-muted-foreground mt-1">Years</div>
+                <div className="text-2xl md:text-3xl font-bold text-foreground">24h</div>
+                <div className="text-sm font-medium text-muted-foreground mt-1">Reply Time</div>
               </div>
               <div className="text-center lg:text-left">
-                <div className="text-2xl md:text-3xl font-bold text-foreground">∞</div>
-                <div className="text-sm font-medium text-muted-foreground mt-1">Possibilities</div>
+                <div className="text-2xl md:text-3xl font-bold text-foreground">100%</div>
+                <div className="text-sm font-medium text-muted-foreground mt-1">Hands-on Build</div>
               </div>
             </div>
           </div>

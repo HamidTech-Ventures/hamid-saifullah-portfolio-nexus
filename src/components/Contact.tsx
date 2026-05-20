@@ -89,11 +89,10 @@ const Contact = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-fade-in-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Let's <span className="gradient-text">Connect</span>
+            Have a problem worth <span className="gradient-text">automating?</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Ready to build something amazing together? Let's discuss your project, 
-            explore investment opportunities, or simply connect over shared ideas.
+            Tell me the workflow, bottleneck, or product idea. I'll reply within 24 hours with a clear next step — scope, timeline, and cost.
           </p>
         </div>
 
@@ -161,7 +160,7 @@ const Contact = () => {
                       rows={6}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Tell me about your business challenges and how we can partner to solve them through technology."
+                      placeholder="What problem are you trying to solve? (e.g. 'We get 200 support tickets/day and want an AI agent to handle tier-1.')"
                     />
                   </div>
 
@@ -213,10 +212,9 @@ const Contact = () => {
               <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
                 <CardContent className="p-8 text-center">
                   <Calendar className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-3">Schedule a Meeting</h3>
+                  <h3 className="text-xl font-semibold mb-3">Book a Free 30-min Strategy Call</h3>
                   <p className="text-muted-foreground mb-6">
-                    Prefer a direct conversation? Book a 30-minute call to discuss your project 
-                    requirements and explore how we can work together.
+                    We'll diagnose your bottleneck, decide if AI is actually the right fix, and outline what an MVP looks like.
                   </p>
                   <Button 
                     variant="outline" 

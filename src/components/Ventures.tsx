@@ -8,23 +8,23 @@ const Ventures = () => {
   const achievements = [
     {
       icon: Users,
-      number: "5+",
-      label: "Enterprise Clients"
+      number: "10+",
+      label: "Clients Served"
     },
     {
       icon: Globe,
-      number: "5",
-      label: "Personal Products"
+      number: "3–6w",
+      label: "MVP Timeline"
     },
     {
       icon: TrendingUp,
-      number: "200%",
-      label: "YoY Growth"
+      number: "24h",
+      label: "Reply Time"
     },
     {
       icon: Zap,
-      number: "99.9%",
-      label: "Uptime"
+      number: "100%",
+      label: "Code You Own"
     }
   ];
 
@@ -38,11 +38,10 @@ const Ventures = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-fade-in-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            My <span className="gradient-text">Ventures</span>
+            How I <span className="gradient-text">Work With Clients</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Building companies that harness the power of AI to solve real-world problems 
-            and create lasting value for businesses globally.
+            Engagements built around outcomes, not hours. Pick the model that fits — fixed-scope MVP, retainer, or fractional AI engineering.
           </p>
         </div>
 
@@ -52,17 +51,15 @@ const Ventures = () => {
             <div className="mb-8">
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
                 <Rocket className="w-4 h-4 mr-2 text-primary" />
-                <span className="text-sm font-medium text-primary">Current Venture</span>
+                <span className="text-sm font-medium text-primary">Engagement Models</span>
               </div>
-              
+
               <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                Founder at HamidTech Ventures
+                Built to ship — not to bill hours
               </h3>
-              
+
               <p className="text-lg text-muted-foreground mb-6">
-                Founded with the vision to democratize AI technology, our company specializes in 
-                creating intelligent solutions that transform how businesses operate, communicate, 
-                and serve their customers.
+                I keep teams small (usually just me, sometimes one senior collaborator) so you get an experienced builder on the keyboard every day. That's how MVPs go live in weeks instead of quarters.
               </p>
             </div>
 
@@ -71,32 +68,30 @@ const Ventures = () => {
               <div className="p-6 rounded-lg bg-card border border-border">
                 <div className="flex items-center mb-3">
                   <Target className="h-5 w-5 text-primary mr-2" />
-                  <h4 className="font-semibold text-primary">Mission</h4>
+                  <h4 className="font-semibold text-primary">Fixed-Scope MVP (3–6 weeks)</h4>
                 </div>
                 <p className="text-muted-foreground">
-                  To bridge the gap between cutting-edge AI research and practical business applications, 
-                  making advanced technology accessible to companies of all sizes.
+                  Best for founders. We define one outcome, you get a live AI system — agent, RAG chatbot, automation, or SaaS — with code you own.
                 </p>
               </div>
 
               <div className="p-6 rounded-lg bg-card border border-border">
                 <div className="flex items-center mb-3">
                   <Rocket className="h-5 w-5 text-primary mr-2" />
-                  <h4 className="font-semibold text-primary">Vision</h4>
+                  <h4 className="font-semibold text-primary">Monthly Retainer / Fractional AI Engineer</h4>
                 </div>
                 <p className="text-muted-foreground">
-                  To become the leading provider of AI-powered business solutions globally, 
-                  empowering organizations to achieve unprecedented efficiency and innovation.
+                  For teams that need ongoing AI/ML work — evals, new agents, integrations, infra. Predictable monthly cost, no recruiting cycle.
                 </p>
               </div>
             </div>
 
             <div className="mt-8">
-              <Button 
+              <Button
                 className="gradient-bg hover:opacity-90 transition-opacity"
-                onClick={handleCompanyLink}
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                Learn More About Our Company
+                Start a Conversation
               </Button>
             </div>
           </div>
@@ -119,27 +114,27 @@ const Ventures = () => {
             {/* Services */}
             <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
               <CardContent className="p-8">
-                <h4 className="text-xl font-semibold mb-4 text-primary">Core Services</h4>
+                <h4 className="text-xl font-semibold mb-4 text-primary">What I Build</h4>
                 <ul className="space-y-3 text-muted-foreground">
                   <li className="flex items-center">
                     <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                    AI Chatbot Development & Integration
+                    Agentic AI workflows (LangGraph, multi-agent)
                   </li>
                   <li className="flex items-center">
                     <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                    Voice AI Agents & Speech Recognition
+                    RAG chatbots trained on your data
                   </li>
                   <li className="flex items-center">
                     <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                    Custom LLM Solutions & RAG Systems
+                    Voice AI agents (STT / TTS, real-time)
                   </li>
                   <li className="flex items-center">
                     <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                    Business Process Automation
+                    ML automation & workflow bots
                   </li>
                   <li className="flex items-center">
                     <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                    SaaS Platform Development
+                    Full-stack SaaS MVPs (React + FastAPI/.NET)
                   </li>
                 </ul>
               </CardContent>
