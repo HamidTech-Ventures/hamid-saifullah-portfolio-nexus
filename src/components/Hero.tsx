@@ -28,18 +28,18 @@ const Hero = () => {
             {/* Badge */}
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6 lg:mb-8 animate-fade-in">
               <Rocket className="w-4 h-4 mr-2 text-primary" />
-              <span className="text-sm font-medium text-primary">Agentic AI • ML • Modern Web</span>
+              <span className="text-sm font-medium text-primary">Agentic AI Systems • Modern Web & Software</span>
             </div>
 
             {/* Main heading */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 animate-fade-in-up text-shadow leading-tight">
-              I turn business problems into
-              <span className="block gradient-text">working AI systems</span>
+              I help businesses grow with
+              <span className="block gradient-text">Agentic AI & modern software</span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              I help founders and teams ship custom Agentic AI, ML automations, RAG chatbots, and SaaS platforms that move the needle — usually in weeks, not quarters.
+              I partner with founders and operators to design and ship Agentic AI systems and modern web software that unlock real growth — more revenue, lower costs, faster operations. Engineered to ship in weeks, built to scale for years.
             </p>
 
             {/* Tech badges */}

@@ -34,20 +34,20 @@ const About = () => {
           {/* Left side - Text content */}
           <div className="animate-fade-in-up">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              I turn messy operations into <span className="gradient-text">working AI systems</span>
+              Your growth partner for <span className="gradient-text">Agentic AI & modern software</span>
             </h2>
 
             <div className="space-y-6 text-lg text-muted-foreground">
               <p>
-                I'm Hamid Saifullah — a software engineer who specializes in Agentic AI, machine learning, and modern web. I work directly with founders, ops leaders, and product teams to replace manual workflows with software that thinks.
+                I'm Hamid Saifullah — an engineer-operator who builds Agentic AI systems and modern web software for businesses that want to grow, not just experiment. Every build is tied to a number: revenue, conversion, hours saved, cost per ticket.
               </p>
 
               <p>
-                My sweet spot: AI agents that handle real workflows (support, sales, ops), RAG chatbots trained on your data, ML pipelines that automate decisions, and the React / FastAPI / .NET systems around them.
+                I design AI agents that run real workflows (support, sales, ops), RAG assistants trained on your data, automation pipelines, and the React, FastAPI, and .NET platforms around them — so growth doesn't break when traffic shows up.
               </p>
 
               <p>
-                No fluff, no handoffs. You talk to the person who builds it.
+                No agency overhead, no handoffs. You talk to the person who architects, builds, and ships it.
               </p>
             </div>
 

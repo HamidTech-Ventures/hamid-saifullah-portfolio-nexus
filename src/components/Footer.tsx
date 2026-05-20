@@ -11,7 +11,7 @@ const Footer = () => {
           <div>
             <h3 className="text-2xl font-bold gradient-text mb-4">Hamid Saifullah</h3>
             <p className="text-muted-foreground">
-              Agentic AI, ML & modern web. I turn business problems into working systems.
+              Helping businesses grow with Agentic AI systems and modern web software.
             </p>
           </div>
 
